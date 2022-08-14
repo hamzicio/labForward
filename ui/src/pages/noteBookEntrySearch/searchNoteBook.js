@@ -99,12 +99,10 @@ export const SearchPage = () => {
 
       <Button onClick={toggleModalValue}>Update Notebook</Button>
 
-      {error.trim().length ? (
+      {error && error.trim().length && (
         <Alert style={{ justifyContent: "center" }} severity="error">
           {error}
         </Alert>
-      ) : (
-        ""
       )}
 
       <Modal
