@@ -1,18 +1,61 @@
+import { Alert, Box, Button, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getFrequencyWSimilarWord } from "../../apis";
+import { getFrequencyWSimilarWord, updateNoteBook } from "../../apis";
+import Form from "../../components/Form";
 import { ResultTab } from "../../components/ResultTab";
 import { SearchBar } from "../../components/SearchBar";
 import "./searchNoteBook.css";
 
 export const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [toggleModal, setToggleModal] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
+  const [notebookUpdated, setNotebookUpdated] = useState(false);
 
-  useEffect(() => {}, [searchQuery, searchResult]);
+  useEffect(() => {}, [
+    searchQuery,
+    searchResult,
+    toggleModal,
+    notebookUpdated,
+  ]);
+
+  const toggleModalValue = () => {
+    setToggleModal(!toggleModal);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const onClear = () => {
     setSearchResult(null);
     setSearchQuery("");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      setNotebookUpdated(false);
+      const response = await updateNoteBook(event.target[0].value);
+      if (response.status === 200) {
+        setNotebookUpdated(true);
+      }
+    } catch (err) {
+      console.err(err);
+    }
+
+    setTimeout(() => {
+      setNotebookUpdated(false);
+      setToggleModal(false);
+    }, 3000);
   };
 
   const getSearchResults = async (e) => {
@@ -44,6 +87,33 @@ export const SearchPage = () => {
           similarWords={searchResult.similarWords}
         />
       )}
+
+      <Button onClick={toggleModalValue}>Update Notebook</Button>
+      <Modal
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        onClose={toggleModalValue}
+        open={toggleModal}
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="span">
+            Update Notebook Entry
+          </Typography>
+          <Typography id="modal-modal-description" component="span" sx={{ mt: 2 }}>
+            {<Form handleFormSubmit={handleSubmit} />}
+            {notebookUpdated ? (
+              <Alert style={{ justifyContent: "center" }} severity="success">
+                Notebook Updated Successfully
+              </Alert>
+            ) : (
+              ""
+            )}
+          </Typography>
+        </Box>
+      </Modal>
     </>
   );
 };

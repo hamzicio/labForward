@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import ClearIcon from "@mui/icons-material/Clear";
 
+// search bar component to type text for searching
 export const SearchBar = ({
   searchQuery,
   setSearchQuery,

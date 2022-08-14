@@ -1,3 +1,5 @@
+
+// result component to render results from api
 export const ResultTab = ({ searchQuery, frequency, similarWords }) => (
   <>
     <div>
@@ -7,7 +9,7 @@ export const ResultTab = ({ searchQuery, frequency, similarWords }) => (
       <p>Frequency : {frequency}</p>
       <p>
         Similar Words :{" "}
-        {similarWords.length ? similarWords : "Not Found"}
+        {similarWords.length ? similarWords.toString() : "Not Found"}
       </p>
     </div>
   </>

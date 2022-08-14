@@ -13,7 +13,7 @@ export const BaseContainer = (props) => {
         justifyContent="center"
         style={{ minHeight: "100vh", minWidth: "100vw" }}
       >
-        <Grid style={{ minHeight: "80vh", minWidth: "80vw" }} item lg={`12`}>
+        <Grid style={{ minHeight: "80vh", minWidth: "80vw" }} item>
           {props.children}
         </Grid>
       </Grid>
