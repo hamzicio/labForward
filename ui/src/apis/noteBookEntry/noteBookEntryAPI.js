@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export const getSimilarWord = async (word) => {
   /**
-   * use activeSop as param in GET API call
+   * calls similarWords endpoint with word as param in GET API call
    */
   return axios.get(`${API_URL}/${getSimilarWords}`, {
     params: {
@@ -21,7 +21,7 @@ export const getSimilarWord = async (word) => {
 
 export const getFrequencyOfWord = async (word) => {
   /**
-   * use activeSop as param in GET API call
+   * calls FrequencyOfWords endpoint with word as param in GET API call
    */
   return axios.get(`${API_URL}/${getFrequency}`, {
     params: {
@@ -32,7 +32,7 @@ export const getFrequencyOfWord = async (word) => {
 
 export const getFrequencyWSimilarWord = async (word) => {
   /**
-   * use activeSop as param in GET API call
+   * calls frequencyWithSimilarWords endpoint with word as param in GET API call
    */
   return axios.get(`${API_URL}/${getFrequencyWithSimilarWords}`, {
     params: {
@@ -43,7 +43,7 @@ export const getFrequencyWSimilarWord = async (word) => {
 
 export const updateNoteBook = async (word) => {
   /**
-   * use activeSop as param in GET API call
+   * updates current notebook entry with a post body
    */
   return axios.post(`${API_URL}/${updateNoteBookEntry}`, {
     word: word,
