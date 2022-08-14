@@ -1,0 +1,7 @@
+.search-container {
+    display: "flex";
+    align-self: "center";
+    justify-content: "center";
+    flex-direction: "column";
+    padding: 20;
+}
