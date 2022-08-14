@@ -23,22 +23,22 @@ public class NoteBookController {
     NoteBookService noteBookService;
 
     // returns frequency of a word by passing word in parameters
-    @GetMapping("getFrequency/{word}")
-    public ResponseEntity<FrequencyDto> getFrequencyOfWord(@PathVariable String word) throws BadRequestException {
+    @GetMapping("getFrequency")
+    public ResponseEntity<FrequencyDto> getFrequencyOfWord(@RequestParam String word) throws BadRequestException {
         Integer frequency =noteBookService.getFrequencyOfWord(word);
         return ResponseEntity.ok(new FrequencyDto(frequency));
     }
 
     // returns similar words by passing word in parameters
-    @GetMapping("getSimilarWords/{word}")
-    public ResponseEntity<SimilarWordsDto> getSimilarWords(@PathVariable String word) throws BadRequestException {
+    @GetMapping("getSimilarWords")
+    public ResponseEntity<SimilarWordsDto> getSimilarWords(@RequestParam String word) throws BadRequestException {
         ArrayList<String> response=noteBookService.getSimilarWords(word);
         return ResponseEntity.ok(new SimilarWordsDto(response));
     }
 
     // returns frequency and similar words for a particular word passed in params
-    @GetMapping("getFrequencyWSimilarWords/{word}")
-    public ResponseEntity<FrequencyWSimilarWordsDto> getFrequencyWithSimilarWords(@PathVariable String word) throws BadRequestException {
+    @GetMapping("getFrequencyWSimilarWords")
+    public ResponseEntity<FrequencyWSimilarWordsDto> getFrequencyWithSimilarWords(@RequestParam String word) throws BadRequestException {
         Integer frequency = noteBookService.getFrequencyOfWord(word);
         ArrayList<String> similarWords=noteBookService.getSimilarWords(word);
         return ResponseEntity.ok(new FrequencyWSimilarWordsDto(frequency,similarWords));
