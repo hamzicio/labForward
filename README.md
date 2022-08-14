@@ -9,14 +9,15 @@ ___An app to simulate the frequency of a word in notebook and also find similar 
 
 
 ## Demo
+![app-demo](notebook.gif)
 
 ## Setup
 
 Below instructions will help you get started with the application and run in local system.
 
 1. Install following on your local machine
-	-  	[Git](https://git-scm.com)
-	- [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
+  -[Git](https://git-scm.com)
+  -[Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
   -[Java](https://www.oracle.com/java/technologies/downloads/)
   -[Maven](https://maven.apache.org/download.cgi)
 2. Clone the repository by running this following command
