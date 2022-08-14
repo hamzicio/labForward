@@ -11,6 +11,7 @@ export const SearchPage = () => {
   const [toggleModal, setToggleModal] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
   const [notebookUpdated, setNotebookUpdated] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {}, [
     searchQuery,
@@ -49,12 +50,14 @@ export const SearchPage = () => {
         setNotebookUpdated(true);
       }
     } catch (err) {
-      console.err(err);
+      console.error(err);
+      setError("An internal error occured. Please try again later");
     }
 
     setTimeout(() => {
       setNotebookUpdated(false);
       setToggleModal(false);
+      setError("");
     }, 3000);
   };
 
@@ -65,7 +68,13 @@ export const SearchPage = () => {
         data: { frequency, similarWords },
       } = await getFrequencyWSimilarWord(searchQuery);
       setSearchResult({ frequency, similarWords });
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+      setError("An internal error occured. Please try again later");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
   };
 
   return (
@@ -89,6 +98,13 @@ export const SearchPage = () => {
       )}
 
       <Button onClick={toggleModalValue}>Update Notebook</Button>
+
+      {error && error.trim().length && (
+        <Alert style={{ justifyContent: "center" }} severity="error">
+          {error}
+        </Alert>
+      )}
+
       <Modal
         style={{
           display: "flex",
@@ -102,7 +118,11 @@ export const SearchPage = () => {
           <Typography id="modal-modal-title" variant="h6" component="span">
             Update Notebook Entry
           </Typography>
-          <Typography id="modal-modal-description" component="span" sx={{ mt: 2 }}>
+          <Typography
+            id="modal-modal-description"
+            component="span"
+            sx={{ mt: 2 }}
+          >
             {<Form handleFormSubmit={handleSubmit} />}
             {notebookUpdated ? (
               <Alert style={{ justifyContent: "center" }} severity="success">
